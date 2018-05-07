@@ -1,5 +1,20 @@
 #!/usr/bin/env bash 
 
+if [ -z "$KAFKA_HOME" ]; then
+    echo "KAFKA_HOME environment variable unset. Please install kafka and define it." 
+    exit 1 
+fi
+
+if [ -z "$(which jq)" ]; then
+    echo "jq command needed for operation in script. Please install it."
+    exit 1
+fi
+
+if [ -z "$(which curl)" ]; then
+    echo "curl command needed for operation in script. Please install it."
+    exit 1
+fi
+
 # Usage: kafka-consumer-lag.sh -i kafka_server -o elasticsearch_url -t <interval_second> group1 [group2 .. groupN]
 
 # TOPIC, PARTION, CURRENT-OFFSET, LOG-END-OFFSET, LAG, CONSUMER-ID, HOST, CLIENT-ID
